@@ -1,0 +1,140 @@
+Git {{{
+http://git-scm.com/book/en/v2
+
+### 概要 {{{
+[working directory]
+ *  | (stage)
+ |  *
+ | [staging area]
+ |            |
+ | (checkout) | (commit)
+ |            * 
+[git directory (repository)]
+}}}
+### 初期設定 {{{
+
+# そのシステムで使用するすべてのコミット情報の変更
+$ git config --global user.name "XXX"
+$ git config --global user.email XXX@gmail.com
+
+# 特定のプロジェクトのコミット情報の変更
+$ git config user.name "XXX"
+$ git config user.email XXX@gmail.com
+
+$ git config --global core.editor vim
+
+# diff ツールの変更
+$ git config --global merge.tool vimdiff
+
+# 設定の確認
+$ git config --list
+
+# }}}
+### Repositoryの取得 {{{
+# init するか clone
+
+# Repository の初期化 {{{
+
+# 既存のレポジトリをGitで管理し始める時に！
+$ git init
+
+$ git add *.c
+$ git add hogefile
+$ git commit -m 'first commit'
+}}}
+# Clone {{{
+
+# grit ディレクトリを作成し .git/ を初期化。
+# その後、最新バージョンの作業コピーを checkout
+$ git clone git://github.com/schacon/grit.git
+
+# 上記とほぼ同様だが、ディレクトリ名を変更
+$ git clone git://github.com/schacon/grit.git mygrit
+}}}
+}}}
+
+# File Status Lifecycle
+
+[untracked]
+ |       *
+ | (add) | (remove)
+ *       |
+[unmodified]
+ *  |
+ |  | (edit)
+ |  *
+ | [modified ]
+ |          |
+ |          | (stage)
+ |          |
+ | (commit) |
+ |          *
+[staged       ]
+
+
+# ファイルの状態の確認
+$ git status
+
+
+# .gitignore
+
+# 標準の glob パターンを使用可能
+# ディレクトリを指定するには、パターンの最後にスラッシュ (/) をつける
+# パターンを逆転させるには、最初に感嘆符 (!) をつける
+*.swp
+*.a	
+# ただし lib.a だけは追跡
+!lib.a
+# 指定ディレクトリ以降をすべて無視
+build/
+# docディレクトリのみのテキストファイルを無視
+doc/*.txt
+# doc/ 以降のテキストファイルを無視
+doc/**/*.txt
+
+
+
+# 追跡対象のファイルを自動的にステージしてからコミット
+git commit -a 
+
+### diff {{{
+# ステージされていないファイルの差分を表示
+$ git diff
+# ステージされたファイルの差分を表示
+$ git diff --cached
+$ git diff --staged
+#}}}
+### rm {{{
+
+# ステージされていないファイルを削除
+git rm {file}
+# ステージされているファイルを削除
+git rm -f {file}
+git rm --cached {file}
+
+# glob パターンで削除
+git rm \*.txt
+
+}}}
+### mv {{{
+
+$ git mv a b
+
+# 上記と同じ
+$ mv a b
+$ git rm a
+$ git add b
+
+#}}}
+### log {{{
+
+$ git log
+# diff
+$ git log -p
+# 過去2エントリ
+$ git log -p -2
+
+#}}}
+}}}
+
+vim: autoindent:commentstring=%s
